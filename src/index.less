@@ -1,0 +1,65 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+.desc-wrapper {
+  width: 720px;
+  background: #f0f0f0;
+  margin: 0 auto;
+  border-radius: 8px;
+  padding: 30px;
+  margin-top: 60px;
+  p {
+    font-size: 18px;
+    padding-bottom: 15px;
+    color: #666;
+    position: relative;
+    text-align: center;
+    button {
+      position: absolute;
+      right: 0;
+      top: -8px;
+    }
+  }
+  ul{
+    list-style: none;
+    padding: 0 60px;
+    margin: 40px 0;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    li {
+      display: inline-block;
+      background: white;
+      width: 230px;
+      background: white;
+      border-radius: 2px;
+      margin-bottom: 30px;
+      flex: 0 1 auto;
+      p {
+        margin: 0;
+        padding-top: 15px;
+        border-bottom: 1px solid #efefef;
+      }
+    }
+    button {
+      width: 100%;
+      height: 55px;
+      margin: 0 auto;
+      border-radius: unset;
+      font-size: 16px;
+      background: white;
+      color: orange;
+    }
+  }
+  button {
+    height: 40px;
+    border-radius: 24px;
+    border: 0;
+    background: orange;
+    color: white;
+    font-size: 16px;
+    line-height: 40px;
+    text-align: center;
+    padding: 0 20px;
+  }
+}

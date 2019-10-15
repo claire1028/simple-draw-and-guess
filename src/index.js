@@ -1,33 +1,23 @@
 import io from 'socket.io-client';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.less';
+import {HashRouter, Route, Switch} from 'react-router-dom';
+import Create from './Create.js';
+import Room from './Room';
 
-// const socket = io('http://localhost:3000');
+import './index.less';
 
 class App extends React.Component {
   render() {
     return (
-      <div className="desc-wrapper">
-        <p>
-          已有房间
-          <button>创建新房间</button>
-        </p>
-        <ul>
-          <li>
-            <p>房间1</p>
-            <button>申请加入</button>
-          </li>
-          <li>
-            <p>房间2</p>
-            <button>申请加入</button>
-          </li>
-          <li>
-            <p>房间3</p>
-            <button>申请加入</button>
-          </li>
-        </ul>
-        
+      <div>
+        <HashRouter>
+          <Switch>
+            <Route exact path="/" component={Create} />
+            <Route path="/:roomId" component={Room} />
+            <Route component={Create} />
+          </Switch>
+        </HashRouter>
       </div>
     )
   }

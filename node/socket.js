@@ -5,7 +5,12 @@ const io = new Socket(server);
 const channelNamesMap = {};
 
 function checkNameExist(arr, item) {
-  return arr.find(v => v === item) > -1;
+  return arr.findIndex(v => v === item) > -1;
+}
+
+function removeNameFromList(arr, item) {
+  const i = arr.findIndex(v => v === item);
+  return i > -1 ? arr.splice(i, 1) : arr;
 }
 
 io.on('connection', (socket) => {
@@ -25,13 +30,19 @@ io.on('connection', (socket) => {
         } else {
           csoc.emit('tip', 'success');
           cn.push(msg.name);
-          dns.emit('message', {type: 'desc', msg: msg.name + 'has joined the room!'});
+          dns.emit('message', {type: 'desc', msg: msg.name + ' joined the room!'});
           dns.emit('channel names', cn);    
         }
       });
 
       csoc.on('new message', data => {
         dns.emit('message', {type: 'own', ...data});
+      });
+
+      csoc.on('remove user', data => {
+        removeNameFromList(cn, data.name);
+        dns.emit('channel names', cn); 
+        dns.emit('message', {type: 'desc', msg: data.name + ' leaved this room!'});
       });
 
     });

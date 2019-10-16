@@ -12,7 +12,8 @@ router.get('/roomId', (req, res) => {
 });
 
 router.delete('/room/:Id', (req, res) => {
-
+  totalRooms -= 1;
+  res.json({totalRooms});
 });
 
 module.exports = router;

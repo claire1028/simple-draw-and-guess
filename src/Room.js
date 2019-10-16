@@ -1,5 +1,6 @@
 import React from 'react';
 import io from 'socket.io-client';
+import Draw from './Draw';
 
 const ENTER_KEY = 'Enter';
 export default class Room extends React.Component {
@@ -27,10 +28,10 @@ export default class Room extends React.Component {
       tip === 'success' ? this.setState({ showDlg: false }) : this.tipRef.innerText = tip;
     });
     this.socket.on('message', data => {
-      if(data.type ==='desc') {
+      if (data.type === 'desc') {
         this.wRef.innerHTML += '<p>' + data.msg + '</p>';
       } else {
-        this.wRef.innerHTML += '<span>' + data.user +':</span>' + data.msg + '<br/>';
+        this.wRef.innerHTML += '<span>' + data.user + ':</span>' + data.msg + '<br/>';
       }
     });
   }
@@ -50,15 +51,21 @@ export default class Room extends React.Component {
   }
 
   handleMsgKeyPress = (e) => {
-    const {name, msg} = this.state;
+    const { name, msg } = this.state;
     if (e.key === ENTER_KEY && msg) {
-      this.socket.emit('new message', {user: name, msg});  
-      this.setState({msg: ''});   
+      this.socket.emit('new message', { user: name, msg });
+      this.setState({ msg: '' });
     }
   }
 
   componentDidMount() {
     this.inputRef.focus();
+    window.addEventListener('beforeunload', e => {
+      e.returnValue = 'not null';
+    });
+    window.addEventListener('unload', e => {
+      this.socket.emit('remove user', {name: this.state.name});
+    })
   }
 
   render() {
@@ -72,12 +79,12 @@ export default class Room extends React.Component {
 
         <div className="row">
           <div className="draw">
-            draw pic
+            <Draw />
           </div>
 
           <div className="names">
             <p>Total people num: {alreadyNames.length}</p>
-            
+
             <div className="already">
               <span>name: </span>
               {
@@ -87,18 +94,18 @@ export default class Room extends React.Component {
               }
             </div>
             <div className="window" ref={el => this.wRef = el} />
-            <input 
-              type="text" 
+            <input
+              type="text"
               className="msg-input"
-              placeholder="pls enter message" 
-              value={msg} 
+              placeholder="pls enter message"
+              value={msg}
               onChange={this.handleMsgChange}
               onKeyPress={this.handleMsgKeyPress}
             />
           </div>
         </div>
 
-        
+
         <div className={`dialog ${!showDlg ? 'hidden' : ''}`} >
           <div className="content">
             <h3>Please enter your name</h3>

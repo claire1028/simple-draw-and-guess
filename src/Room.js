@@ -97,7 +97,7 @@ export default class Room extends React.Component {
             <input
               type="text"
               className="msg-input"
-              placeholder="pls enter message"
+              placeholder="input message, press enter send"
               value={msg}
               onChange={this.handleMsgChange}
               onKeyPress={this.handleMsgKeyPress}

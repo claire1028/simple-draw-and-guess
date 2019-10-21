@@ -22,7 +22,6 @@ const getRandomGoods = () => {
 };
 
 const getRandomMaster = (arr, totalNum) => {
-  console.log('999', totalNum);
   if(totalNum === 1) {
     return arr[0];
   }

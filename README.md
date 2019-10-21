@@ -1,5 +1,5 @@
 ### websocket
-websocket example
+Simple draw and guess based on websocket and react.
 
 ### how to run
 1. yarn

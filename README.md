@@ -1,5 +1,5 @@
 ### websocket
-Simple draw and guess based on websocket and react.
+Simple draw and guess based on Socketio and react.
 
 ### how to run
 1. yarn
